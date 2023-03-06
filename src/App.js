@@ -1,11 +1,11 @@
   
 import './App.css';
-import NavbarComponent from './Navbar'
+import Showcase from './components/showcase/index'
 
 function App() {
   return (
     <div className="App">
-        <NavbarComponent/>
+        <Showcase/>
     </div>
     
   );

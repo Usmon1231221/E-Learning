@@ -2,7 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { Search, User, Eye } from 'react-feather'
 
-const Container = styled('div')``
+const Container = styled('div')`
+    width: 100%;
+`
 const FilterContainer = styled('div')`
     display: flex;
 `

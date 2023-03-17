@@ -18,17 +18,26 @@ const Card = styled('div')`
     height: 330px;
     padding: .7rem 1rem;
     border-radius: 6px;
+    transition: all .3s;
     &:hover{
         background-color: darkblue;
         color: white;
         .btn{
             background-color: orangered;
+            color: white;
+        }
+        .cost{
+            color: orangered;
+        }
+        .info, .title, .icon{
+            color: white;
         }
     }
 `
 
 const CardIcon = styled('div')`
     padding: .6rem 0;
+    color: blue;
 `
 
 const CardInfos = styled('div')`
@@ -50,23 +59,29 @@ const Button = styled('button')`
     color: blue;
     padding: .5rem 1rem;
 `
+const Cost = styled('h3')`
+    color: orangered;
+`
+const Title = styled('h3')`
+    color: blue;
+`
 
 const Cards = () => {
     return(
         <Container>
             {CardInfo.map((d) => (
                 <Card>
-                    <CardIcon>{d.icon}</CardIcon>
+                    <CardIcon className="icon">{d.icon}</CardIcon>
                     <CardInfos>
-                        <h3>{d.title}</h3>
-                        <h3>{d.cost}</h3>
+                        <Title className="title">{d.title}</Title>
+                        <Cost className="cost">{d.cost}</Cost>
                     </CardInfos>
                     <CardButtons>
                             <Infos>
                                 <PlayCircle style={{margin: "0 0.5rem 0 0 ", color: 'orangered'}}/>
-                                <p>{d.videos} videos</p>
+                                <p className="info">{d.videos} videos</p>
                                 <Star style={{margin: "0 0.5rem 0 1rem ", color: 'orangered'}}/>
-                                <p>{d.viewers} views</p>
+                                <p className="info">{d.viewers} views</p>
                             </Infos>
                         <Button className="btn">Join Now</Button>
                     </CardButtons>

@@ -22,6 +22,7 @@ const TextContainer = styled('div')`
 const Button = styled(Link)`
     background-color: orange;
     border-radius: 5px;
+    padding: .3rem 1rem;
     color: white;
     padding: .3rem 1rem;
     text-decoration: none;

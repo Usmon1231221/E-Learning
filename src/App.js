@@ -1,11 +1,9 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import styled from 'styled-components';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/login';
-import Home from './pages/home'
-import { useState } from 'react';
-
+import Section from './components/Section';
+import Explorer from './components/Explorer';
+import EdugoLearn from './components/EdugoLearn';
 
 const AppContainer = styled(BrowserRouter)`
   margin: 0 4rem;
@@ -16,6 +14,11 @@ function App() {
 
   return (
     <AppContainer>
+      <Navbar />
+      <Showcase />
+      <Section />
+      <EdugoLearn />
+      <Explorer/>
       <Routes>
         <Route path={'/'} element={<Home isAuth={isAuth} setIsAuth={setIsAuth} />} />
         <Route path={'/login'} element={<LoginPage setIsAuth={setIsAuth} />} />

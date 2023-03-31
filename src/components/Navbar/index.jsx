@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link, useNavigate } from 'react-router-dom'
+import { auth } from '../../config/config'
+import { signOut } from 'firebase/auth'
 
 const Container = styled('div')`
     display: flex;
@@ -16,16 +19,18 @@ const TextContainer = styled('div')`
     align-items: center;
 `
 
-const Button = styled('div')`
+const Button = styled(Link)`
     background-color: orange;
     border-radius: 5px;
     padding: .3rem 1rem;
     color: white;
+    padding: .3rem 1rem;
+    text-decoration: none;
 `
 
 const Logo = styled('h1')`
     color: blue;
-` 
+`
 const Text = styled('p')`
     color: black;
     padding: 1rem 2rem;
@@ -35,8 +40,16 @@ const Span = styled('span')`
     color: orange;
 `
 
-const Navbar = () => {
-    return(
+const Navbar = ({ isAuth, setIsAuth }) => {
+    console.log(setIsAuth)
+    const navigate = useNavigate()
+    const signUserOut = () => {
+        signOut(auth).then(() => {
+            setIsAuth(false)
+            navigate('/login')
+        })
+    }
+    return (
         <Container>
             <LogoContainer>
                 <Logo>
@@ -44,14 +57,14 @@ const Navbar = () => {
                 </Logo>
             </LogoContainer>
             <TextContainer>
-                <Text>Home  </Text>
+                <Text><Link to={'/'} style={{ textDecoration: 'none', color: 'black' }}>Home</Link>  </Text>
                 <Text>Programs  </Text>
                 <Text>Proffesional Education  </Text>
                 <Text>Courses  </Text>
                 <Text>Admissions  </Text>
                 <Text>Testimonials  </Text>
             </TextContainer>
-            <Button>Log in</Button>
+            {isAuth ? <Button to={'/login'}>Log in</Button> : <Button onClick={signUserOut}>Log out</Button>}
         </Container>
     )
 }

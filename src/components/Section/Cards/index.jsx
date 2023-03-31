@@ -8,8 +8,8 @@ const Container = styled('div')`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 2rem;
     margin: 2rem 0;
+    gap: 1.5rem;
 `
 
 const Card = styled('div')`

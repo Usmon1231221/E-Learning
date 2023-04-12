@@ -29,7 +29,7 @@ const InputForm = styled('div')`
 `
 
 
-const InputBar  = styled('input')`
+const InputBar = styled('input')`
     border: none;
     
 `
@@ -42,31 +42,31 @@ const Button = styled('button')`
     border-radius: 6px;
 `
 
-    
+
 const Input = () => {
-    return(
+    return (
         <Container>
             <FilterContainer>
                 <Filter>
                     <InputForm>
-                        <Search color = 'orangered'/>
-                          <InputBar placeholder='Course name'/>             
+                        <Search color='orangered' />
+                        <InputBar placeholder='Course name' />
                     </InputForm>
                     <InputForm>
-                        <User color = 'orangered'/>
-                          <InputBar placeholder='Tutor name'/>             
+                        <User color='orangered' />
+                        <InputBar placeholder='Tutor name' />
                     </InputForm>
                     <Button>
-                        <Search color='white'/>
+                        <Search color='white' />
                         Search</Button>
                 </Filter>
                 <Filter>
                     <InputForm>
-                        <Eye color='orangered'/>
-                          <InputBar placeholder='Popular courses'/>             
+                        <Eye color='orangered' />
+                        <InputBar placeholder='Popular courses' />
                     </InputForm>
                 </Filter>
-                </FilterContainer>
+            </FilterContainer>
         </Container>
     )
 }

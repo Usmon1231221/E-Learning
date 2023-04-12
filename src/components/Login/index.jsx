@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { BiArrowBack } from 'react-icons/bi'
 import RightImg from '../../images/LoginBg.png'
 import { auth, provider } from '../../config/config'
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { getIndex, useFlubber } from "./use-flubber.ts";
+import { star, heart, hand, plane, lightning, note } from "./paths";
+
 
 const Container = styled('div')`
     display: flex;
@@ -20,7 +24,7 @@ const LeftContent = styled('div')`
 
 const RightContent = styled('div')`
     width: 60%;
-    height: 100vh;
+    height: 1000px;
     background-image: url(${RightImg});
     background-repeat: no-repeat;
     background-size: cover;
@@ -53,16 +57,7 @@ const Or = styled('p')`
     padding: 0 10px;
 `
 
-const SignButton = styled('button')`
-    border: none;
-    border-radius: 6px;
-    background-color: #ff5c21;
-    color: white;
-    padding: .3rem .5rem;
-    &:hover{
-        box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
-    }
-`
+
 
 const GoogleSignIn = styled('button')`
     cursor: pointer;
@@ -83,7 +78,39 @@ const GoogleSignIn = styled('button')`
   background-position: 12px 11px;
 `
 
+const paths = [lightning, hand, plane, heart, note, star, lightning];
+const colors = [
+    "#00cc88",
+    "#0099ff",
+    "#8855ff",
+    "#ff0055",
+    "#ee4444",
+    "#ffcc00",
+    "#00cc88"
+];
+
 const Login = ({ setIsAuth }) => {
+    const [pathIndex, setPathIndex] = useState(0);
+    const progress = useMotionValue(pathIndex);
+    const fill = useTransform(progress, paths.map(getIndex), colors);
+    const path = useFlubber(progress, paths);
+
+    useEffect(() => {
+        const animation = animate(progress, pathIndex, {
+            duration: 0.8,
+            ease: "easeInOut",
+            onComplete: () => {
+                if (pathIndex === paths.length - 1) {
+                    progress.set(0);
+                    setPathIndex(1);
+                } else {
+                    setPathIndex(pathIndex + 1);
+                }
+            }
+        });
+
+        return () => animation.stop();
+    }, [pathIndex]);
     const navigate = useNavigate()
     const signInWithGoogle = () => {
         signInWithPopup(auth, provider).then((result) => {
@@ -98,6 +125,11 @@ const Login = ({ setIsAuth }) => {
     return (
         <Container>
             <LeftContent>
+                <svg width="400" height="400">
+                    <g transform="translate(10 10) scale(17 17)">
+                        <motion.path fill={fill} d={path} />
+                    </g>
+                </svg>
                 <Form>
                     <h1>Sign In</h1>
                     <Label>Email :
@@ -107,7 +139,17 @@ const Login = ({ setIsAuth }) => {
                         Password :
                         <Input type='password' placeholder='Password' />
                     </Label>
-                    <SignButton onClick={logInButton}>Sign In</SignButton>
+
+                    <motion.button
+                        animate={{
+                            backgroundColor: "orangered",
+                            border: 'none',
+                            padding: ".3rem .8rem",
+                            borderRadius: '6px',
+                            color: 'white'
+                        }}
+                        onClick={logInButton} whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }} >Sign In</motion.button>
                 </Form>
                 <Or>or</Or>
                 <GoogleSignIn onClick={signInWithGoogle}>Sign In With Google</GoogleSignIn>

@@ -56,8 +56,8 @@ const Explorer = () => {
             <Header>Explore Courses</Header>
             <SubTitle>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet at aperiam sed, ab quia veritatis placeat nam? Optio ducimus debitis, soluta numquam quaerat magni ullam atque doloribus harum rerum impedit.</SubTitle>
             <Cards>            
-            {ExplorerInfo.map((d) => (
-                <Card>
+            {ExplorerInfo.map((d, index) => (
+                <Card key={index}>
                     <CardIcon className="icon">{d.icon}</CardIcon>
                     <Title className="title">{d.title}</Title>
                 </Card>
